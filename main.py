@@ -29,7 +29,7 @@ SABAH_DAKIKASI = 20
 # ====================================================================
 
 def whatsapp_link_firlat(gun):
-    mesaj = f"🎬 Günaydın Elif! Hikayemizin {gun}. Gün Bölümü Hazır.\n\nHemen en yüksek kalitede izlemek için tıkla: {ORTAK_IZLEME_LINKI}"
+    mesaj = f"🎬 Günaydın Gülşen! Hikayemizin {gun}. Gün Bölümü Hazır.\n\nHemen en yüksek kalitede izlemek için tıkla: {ORTAK_IZLEME_LINKI}"
     url = f"https://callmebot.com{WHATSAPP_NUMARASI}&text={requests.utils.quote(mesaj)}&apikey={CALLMEBOT_API_KEY}"
     try:
         requests.get(url, timeout=20)
