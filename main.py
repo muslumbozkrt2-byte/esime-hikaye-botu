@@ -24,8 +24,8 @@ HIKAYE_KONUSU = "Gizemli bir adada mahsur kalan Elif'in hayatta kalma mücadeles
 ORTAK_IZLEME_LINKI = "https://google.com" 
 
 # ASIL İSTEDİĞİNİZ ZAMAN AYARI (HER GECE 02:20)
-SABAH_SAATI = 2      
-SABAH_DAKIKASI = 20  
+SABAH_SAATI = 3      
+SABAH_DAKIKASI = 00  
 # ====================================================================
 
 def whatsapp_link_firlat(gun):
