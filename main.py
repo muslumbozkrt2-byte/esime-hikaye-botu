@@ -32,7 +32,7 @@ def whatsapp_link_firlat(gun):
 
 def zamanlayici_dongusu():
     bolum_sayaci = 1
-    print("⏰ Gece 02:20 Bekçisi Bulutta Başlatıldı...")
+    print("⏰ Gece 02:40 Bekçisi Bulutta Başlatıldı...")
     while True:
         # Sunucu saatini Türkiye saatine uyarlar (+3 saat farkı)
         turkiye_saati = (datetime.now().hour + 3) % 24
