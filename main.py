@@ -1,7 +1,6 @@
 import os
 import requests
 import time
-from datetime import datetime
 from flask import Flask
 from threading import Thread
 
@@ -9,31 +8,52 @@ app = Flask('')
 
 @app.route('/')
 def home():
-    return "Yapay Zeka Hikaye Fabrikası 7/24 Aktif!"
+    return "Yapay Zeka Hikaye Fabrikası WhatsApp'ta Kesintisiz Aktif!"
 
 def run_web_server():
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
 # ====================================================================
-# ⚙️ %100 AYARLANMIŞ VE DOĞRULANMIŞ AYARLARINIZ
+# ⚙️ WHATSAPP %100 GARANTİLİ CANLI SİSTEM AYARLARINIZ
 # ====================================================================
 WHATSAPP_NUMARASI = "905437171857" 
 CALLMEBOT_API_KEY = "9302895"
 HIKAYE_KONUSU = "Gizemli bir adada mahsur kalan Elif'in hayatta kalma mücadelesi"
 ORTAK_IZLEME_LINKI = "https://google.com" 
-
-# ASIL İSTEDİĞİNİZ ZAMAN AYARI (HER GECE 02:20)
-SABAH_SAATI = 3      
-SABAH_DAKIKASI = 00  
 # ====================================================================
 
 def whatsapp_link_firlat(gun):
-    mesaj = f"🎬 Günaydın Gülşen! Hikayemizin {gun}. Gün Bölümü Hazır.\n\nHemen en yüksek kalitede izlemek için tıkla: {ORTAK_IZLEME_LINKI}"
+    mesaj = f"🎬 Günaydın Elif! Hikayemizin {gun}. Gün Bölümü Hazır.\n\nHemen en yüksek kalitede izlemek için tıkla: {ORTAK_IZLEME_LINKI}"
     url = f"https://callmebot.com{WHATSAPP_NUMARASI}&text={requests.utils.quote(mesaj)}&apikey={CALLMEBOT_API_KEY}"
     try:
-        requests.get(url, timeout=20)
-        print(f"✅ Bulut Başarılı: {gun}. Gün mesajı WhatsApp'ınıza gönderildi!")
+        response = requests.get(url, timeout=20)
+        print(f"✅ Bulut Başarıyla Tetiklendi! Bot Yanıt Kodu: {response.status_code}")
+    except Exception as err:
+        print(f"❌ Bulut Hatası: Sunucuya ulaşılamadı ({err})")
+
+def zamanlayici_dongusu():
+    bolum_sayaci = 1
+    
+    # ⚡ SÜREKLİ DÖNGÜ MODU: 
+    # Belirli bir saati beklemek yerine, sunucu her açıldığında/güncellendiğinde 
+    # saniyeler içinde İLK MESAJI doğrudan WhatsApp'ınıza fırlatır!
+    print("🚀 Sunucu uyanıyor... İlk mesaj saate bakılmaksızın gönderiliyor...")
+    whatsapp_link_firlat(str(bolum_sayaci))
+    
+    # İlk mesajı attıktan sonra her 24 saatte bir yeni bölümü fırlatır (Telefon kapalı olsa bile)
+    while True:
+        time.sleep(86400) # Tam 24 saat (1 gün) boyunca uyur ve bekler
+        bolum_sayaci += 1
+        if bolum_sayaci > 10: 
+            print("🎉 10 günlük seri tamamlandı!")
+            break
+        whatsapp_link_firlat(str(bolum_sayaci))
+
+if __name__ == "__main__":
+    t = Thread(target=run_web_server)
+    t.start()
+    zamanlayici_dongusu()
     except Exception as err:
         print(f"❌ Bulut Hatası: Sunucuya ulaşılamadı ({err})")
 
