@@ -14,26 +14,35 @@ def run_web_server():
     port = int(os.environ.get("PORT", 8080))
     app.run(host='0.0.0.0', port=port)
 
-# ====================================================================
-# ⚙️ WHATSAPP %100 GARANTİLİ CANLI SİSTEM AYARLARINIZ
-# ====================================================================
 WHATSAPP_NUMARASI = "905437171857" 
 CALLMEBOT_API_KEY = "9302895"
-HIKAYE_KONUSU = "Gizemli bir adada mahsur kalan Elif'in hayatta kalma mücadelesi"
 ORTAK_IZLEME_LINKI = "https://google.com" 
-# ====================================================================
 
 def whatsapp_link_firlat(gun):
-    mesaj = f"🎬 Günaydın Elif! Hikayemizin {gun}. Gün Bölümü Hazır.\n\nHemen en yüksek kalitede izlemek için tıkla: {ORTAK_IZLEME_LINKI}"
+    mesaj = f"🎬 Gunaydin Gülşen! Hikayemizin {gun}. Gun Bolumu Hazir.\n\nHemen en yuksek kalitede izlemek icin tikla: {ORTAK_IZLEME_LINKI}"
     url = f"https://callmebot.com{WHATSAPP_NUMARASI}&text={requests.utils.quote(mesaj)}&apikey={CALLMEBOT_API_KEY}"
     try:
         response = requests.get(url, timeout=20)
-        print(f"✅ Bulut Başarıyla Tetiklendi! Bot Yanıt Kodu: {response.status_code}")
+        print(f"-> Bot Yanit Kodu: {response.status_code}")
     except Exception as err:
-        print(f"❌ Bulut Hatası: Sunucuya ulaşılamadı ({err})")
+        print(f"-> Hata: {err}")
 
 def zamanlayici_dongusu():
     bolum_sayaci = 1
+    print("🚀 Sunucu uyanıyor... İlk mesaj saate bakılmaksızın gönderiliyor...")
+    whatsapp_link_firlat(str(bolum_sayaci))
+    while True:
+        time.sleep(86400)
+        bolum_sayaci += 1
+        if bolum_sayaci > 10:
+            print("🎉 10 günlük seri tamamlandı!")
+            break
+        whatsapp_link_firlat(str(bolum_sayaci))
+
+if __name__ == "__main__":
+    t = Thread(target=run_web_server)
+    t.start()
+    zamanlayici_dongusu()
     
     # ⚡ SÜREKLİ DÖNGÜ MODU: 
     # Belirli bir saati beklemek yerine, sunucu her açıldığında/güncellendiğinde 
