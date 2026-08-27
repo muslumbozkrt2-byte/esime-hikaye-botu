@@ -1,93 +1,15 @@
-import os
-import requests
-import time
-from flask import Flask
-from threading import Thread
-
-app = Flask('')
-
-@app.route('/')
-def home():
-    return "Yapay Zeka Hikaye Fabrikası WhatsApp'ta Kesintisiz Aktif!"
-
-def run_web_server():
-    port = int(os.environ.get("PORT", 8080))
-    app.run(host='0.0.0.0', port=port)
-
-WHATSAPP_NUMARASI = "905437171857" 
-CALLMEBOT_API_KEY = "9302895"
-ORTAK_IZLEME_LINKI = "https://google.com" 
-
+import os, requests, time, urllib.parse; from flask import Flask; from threading import Thread
+app = Flask(''); app.route('/')(lambda: "Yapay Zeka Hikaye Fabrikasi Kesintisiz Aktif!")
+def run_web_server(): port = int(os.environ.get("PORT", 8080)); app.run(host='0.0.0.0', port=port)
 def whatsapp_link_firlat(gun):
-    mesaj = f"🎬 Gunaydin Gülşen! Hikayemizin {gun}. Gun Bolumu Hazir.\n\nHemen en yuksek kalitede izlemek icin tikla: {ORTAK_IZLEME_LINKI}"
-    url = f"https://callmebot.com{WHATSAPP_NUMARASI}&text={requests.utils.quote(mesaj)}&apikey={CALLMEBOT_API_KEY}"
-    try:
-        response = requests.get(url, timeout=20)
-        print(f"-> Bot Yanit Kodu: {response.status_code}")
-    except Exception as err:
-        print(f"-> Hata: {err}")
-
+    mesaj = f"🎬 Gunaydin Elif! Hikayemizin {gun}. Gun Bolumu Hazir.\n\nHemen en yuksek kalitede izlemek icin tikla: https://google.com"
+    url = f"https://callmebot.com{urllib.parse.quote(mesaj)}&apikey=9302895"
+    try: print(f"-> Bot Yanit Kodu: {requests.get(url, timeout=20).status_code}")
+    except Exception as err: print(f"-> Hata: {err}")
 def zamanlayici_dongusu():
-    bolum_sayaci = 1
-    print("🚀 Sunucu uyanıyor... İlk mesaj saate bakılmaksızın gönderiliyor...")
-    whatsapp_link_firlat(str(bolum_sayaci))
+    bolum_sayaci = 1; print("🚀 Sunucu uyaniyor... Ilk mesaj firlatiliyor..."); whatsapp_link_firlat(str(bolum_sayaci))
     while True:
-        time.sleep(86400)
-        bolum_sayaci += 1
-        if bolum_sayaci > 10:
-            print("🎉 10 günlük seri tamamlandı!")
-            break
+        time.sleep(86400); bolum_sayaci += 1
+        if bolum_sayaci > 10: print("🎉 10 gunluk seri tamamlandi!"); break
         whatsapp_link_firlat(str(bolum_sayaci))
-
-if __name__ == "__main__":
-    t = Thread(target=run_web_server)
-    t.start()
-    zamanlayici_dongusu()
-    
-    # ⚡ SÜREKLİ DÖNGÜ MODU: 
-    # Belirli bir saati beklemek yerine, sunucu her açıldığında/güncellendiğinde 
-    # saniyeler içinde İLK MESAJI doğrudan WhatsApp'ınıza fırlatır!
-    print("🚀 Sunucu uyanıyor... İlk mesaj saate bakılmaksızın gönderiliyor...")
-    whatsapp_link_firlat(str(bolum_sayaci))
-    
-    # İlk mesajı attıktan sonra her 24 saatte bir yeni bölümü fırlatır (Telefon kapalı olsa bile)
-    while True:
-        time.sleep(86400) # Tam 24 saat (1 gün) boyunca uyur ve bekler
-        bolum_sayaci += 1
-        if bolum_sayaci > 10: 
-            print("🎉 10 günlük seri tamamlandı!")
-            break
-        whatsapp_link_firlat(str(bolum_sayaci))
-
-if __name__ == "__main__":
-    t = Thread(target=run_web_server)
-    t.start()
-    zamanlayici_dongusu()
-    except Exception as err:
-        print(f"❌ Bulut Hatası: Sunucuya ulaşılamadı ({err})")
-
-def zamanlayici_dongusu():
-    # ⚡ [ANLIK TEST TETİKLEMESİ] 
-    # Sunucu her açıldığında/güncellendiğinde saate bakmaksızın İLK MESAJI hemen atar!
-    print("⚡ Bulut motoru güncellendi. İlk test mesajı şimdi fırlatılıyor...")
-    whatsapp_link_firlat("1")
-    
-    bolum_sayaci = 2 # Sonraki gün 2. bölümden devam eder
-    print(f"⏰ Zamanlayıcı hafızaya alındı. Her gece {SABAH_SAATI}:{SABAH_DAKIKASI} vaktini bekliyor...")
-    while True:
-        turkiye_saati = (datetime.now().hour + 3) % 24
-        turkiye_dakikasi = datetime.now().minute
-        
-        if turkiye_saati == SABAH_SAATI and turkiye_dakikasi == SABAH_DAKIKASI:
-            whatsapp_link_firlat(str(bolum_sayaci))
-            bolum_sayaci += 1
-            if bolum_sayaci > 10:
-                print("🎉 10 günlük seri bitti.")
-                break
-            time.sleep(60)
-        time.sleep(30)
-
-if __name__ == "__main__":
-    t = Thread(target=run_web_server)
-    t.start()
-    zamanlayici_dongusu()
+if __name__ == "__main__": Thread(target=run_web_server).start(); zamanlayici_dongusu()
