@@ -13,7 +13,7 @@ def zamanlayici_dongusu():
     bolum_sayaci = 1; print("⏰ Zamanlayici bulutta baslatildi. Her gun saat 13:35 bekleniyor...")
     while True:
         turkiye_saati = (datetime.now().hour + 3) % 24; turkiye_dakikasi = datetime.now().minute
-        if turkiye_saati == 13 and turkiye_dakikasi == 35:
+        if turkiye_saati == 13 and turkiye_dakikasi == 50:
             whatsapp_link_firlat(str(bolum_sayaci)); bolum_sayaci += 1
             if bolum_sayaci > 10: print("🎉 10 gunluk seri tamamlandi!"); break
             time.sleep(60)
